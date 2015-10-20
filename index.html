@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+ Create by Khamlek HOMSOMBATH
+ VTE Maker Club
+ Email: khamlek.hsb@gmail.com
+ facebook: https://facebook.com/lekpkd
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Smart Home - Internet of Things</title>
+        <link href="bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="main.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            
+            $(document).ready(function () {
+                logs("Started");
+                
+            });
+            
+            function toggleSw(gpioPin, btn) {
+                var state = $(btn).val();
+                logs(gpioPin + " to " + state);
+                var url = 'gpio.php?pin=' + gpioPin + '&state=' + state;
+                $.get(url, function (data) {
+                    logs(data);
+                });
+            }
+            function logs(text) {
+                var now = new Date();
+                $("#logger").html('<div>' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '.' + now.getMilliseconds() + ' ' + text + '</div>');
+            }
+        </script>
+    </head>
+    <body>
+        <div class="banner"></div>
+
+        <div class="container">
+            <div class="row  switch-board">
+                <div class="col-md-3 switch-box">
+                    <div id="light0" class="light"></div>
+                    <div>
+                        <h3>Meeting Room</h3>
+                        <button class="btn btn-default" id="btn0" onclick="toggleSw(0,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light1" class="light"></div>
+                    <div>
+                        <h3>IT Room</h3>
+                        <button class="btn btn-default" id="btn1" onclick="toggleSw(1,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light2" class="light"></div>
+                    <div>
+                        <h3>Store 1</h3>
+                        <button class="btn btn-default" id="btn2" onclick="toggleSw(2,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light3"  class="light"></div>
+                    <div>
+                        <h3>Store 2</h3>
+                        <button class="btn btn-default" id="btn3" onclick="toggleSw(3,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light4" class="light"></div>
+                    <div>
+                        <h3>WC 1</h3>
+                        <button class="btn btn-default" id="btn4" onclick="toggleSw(4,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light5" class="light"></div>
+                    <div>
+                        <h3>WC 2</h3>
+                        <button class="btn btn-default" id="btn5" onclick="toggleSw(5,this)">Turn On</button>
+                    </div>
+                </div>
+                <div class="col-md-3 switch-box">
+                    <div  id="light6"  class="light light-active"></div>
+                    <div>
+                        <h3>Kitchen</h3>
+                        <button class="btn btn-default" id="btn6" onclick="toggleSw(6,this)">Turn On</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container server-info hidden">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Server</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>IP</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Online time</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container">Logger</div>
+        <div id="logger" class="container panel panel-default panel-body">
+
+        </div>
+        <script>
+            (function worker() {
+                var url = "gpioState.php";
+                $.getJSON(url, function (data) {
+                    $.each(data, function (pin, val) {
+                        $("#light" + (pin + 1)).removeClass("light-active");
+                        if (val)
+                            $("#light" + (pin + 1)).addClass("light-active");
+                        $("#btn" + (pin+1)).val(val?0:1);
+                        $("#btn"+ (pin+1)).text(val?"ມອດ":"ເປີດ");
+                    });
+                    setTimeout(worker, 400);
+                });
+            })();
+        </script>
+    </body>
+</html>

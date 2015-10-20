@@ -1,0 +1,47 @@
+body {
+    background: #DAF3E4;
+}
+.banner {
+    height: 200px;
+    width: 100%;
+    background: url(vte-maker-banner.jpeg) no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.switch-board {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.4);
+    border: rgba(255,255,255,0.7) solid 1px;
+    border-radius: 7px;
+    min-height: 200px;
+    box-shadow: 0px 3px 9px #aaa;
+}
+
+.light {
+    width: 64px;
+    height: 64px;
+    background: url(light63.png);
+}
+.light-active {
+       background: url(light64.png);
+}
+.switch-box {
+        margin-top: 20px;
+}
+.switch-box h3 {
+    font-size: 1.5em;
+    color: #3c763d;
+}
+.switch-box > div {
+    display: inline-block;
+}
+.switch-box h3 {
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+#logger {
+    max-height: 100px;
+    overflow: auto;
+}
