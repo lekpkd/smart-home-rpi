@@ -13,12 +13,11 @@
         <link href="main.css" rel="stylesheet" type="text/css"/>
         <script src="jquery.js" type="text/javascript"></script>
         <script type="text/javascript">
-            
+
             $(document).ready(function () {
                 logs("Started");
-                
             });
-            
+
             function toggleSw(gpioPin, btn) {
                 var state = $(btn).val();
                 logs(gpioPin + " to " + state);
@@ -42,49 +41,49 @@
                     <div id="light0" class="light"></div>
                     <div>
                         <h3>Meeting Room</h3>
-                        <button class="btn btn-default" id="btn0" onclick="toggleSw(0,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn0" onclick="toggleSw(0, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light1" class="light"></div>
                     <div>
                         <h3>IT Room</h3>
-                        <button class="btn btn-default" id="btn1" onclick="toggleSw(1,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn1" onclick="toggleSw(1, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light2" class="light"></div>
                     <div>
                         <h3>Store 1</h3>
-                        <button class="btn btn-default" id="btn2" onclick="toggleSw(2,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn2" onclick="toggleSw(2, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light3"  class="light"></div>
                     <div>
                         <h3>Store 2</h3>
-                        <button class="btn btn-default" id="btn3" onclick="toggleSw(3,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn3" onclick="toggleSw(3, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light4" class="light"></div>
                     <div>
                         <h3>WC 1</h3>
-                        <button class="btn btn-default" id="btn4" onclick="toggleSw(4,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn4" onclick="toggleSw(4, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light5" class="light"></div>
                     <div>
                         <h3>WC 2</h3>
-                        <button class="btn btn-default" id="btn5" onclick="toggleSw(5,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn5" onclick="toggleSw(5, this)">Turn On</button>
                     </div>
                 </div>
                 <div class="col-md-3 switch-box">
                     <div  id="light6"  class="light light-active"></div>
                     <div>
                         <h3>Kitchen</h3>
-                        <button class="btn btn-default" id="btn6" onclick="toggleSw(6,this)">Turn On</button>
+                        <button class="btn btn-default" id="btn6" onclick="toggleSw(6, this)">Turn On</button>
                     </div>
                 </div>
             </div>
@@ -120,11 +119,10 @@
                 var url = "gpioState.php";
                 $.getJSON(url, function (data) {
                     $.each(data, function (pin, val) {
-                        $("#light" + (pin + 1)).removeClass("light-active");
+                        $("#light" + pin).removeClass("light-active");
                         if (val)
-                            $("#light" + (pin + 1)).addClass("light-active");
-                        $("#btn" + (pin+1)).val(val?0:1);
-                        $("#btn"+ (pin+1)).text(val?"ມອດ":"ເປີດ");
+                            $("#light" + pin).addClass("light-active");
+                        $("#btn" + pin).val(val ? 0 : 1).text(val ? "ມອດ" : "ເປີດ");
                     });
                     setTimeout(worker, 400);
                 });
